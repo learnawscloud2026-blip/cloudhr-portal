@@ -13,3 +13,8 @@ variable "environment" {
 variable "vpc_cidr" {
   type = string
 }
+
+variable "my_ip" {
+  description = "Public IP Address with /32"
+  type        = string
+}

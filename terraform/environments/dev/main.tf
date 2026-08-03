@@ -111,3 +111,50 @@ module "nat_gateway" {
   common_tags = local.common_tags
 
 }
+
+module "route_table" {
+
+  source = "../../modules/route-table"
+
+  vpc_id = module.vpc.vpc_id
+
+  internet_gateway_id = module.internet_gateway.internet_gateway_id
+
+  nat_gateway_id = module.nat_gateway.nat_gateway_id
+
+  subnet_ids = module.subnet.subnet_ids
+
+  project_name = var.project_name
+
+  environment = var.environment
+
+  common_tags = local.common_tags
+}
+
+module "security_group" {
+
+  source = "../../modules/security-group"
+
+  vpc_id = module.vpc.vpc_id
+
+  project_name = var.project_name
+
+  environment = var.environment
+
+  common_tags = local.common_tags
+
+  my_ip = var.my_ip
+
+}
+
+module "iam" {
+
+  source = "../../modules/iam"
+
+  project_name = var.project_name
+
+  environment = var.environment
+
+  common_tags = local.common_tags
+
+}

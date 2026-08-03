@@ -7,4 +7,18 @@
 crash.log
 
 # Keep lock file
-!.terraform.lock.hcl
+.terraform.lock.hcl
+
+venv/
+
+__pycache__/
+
+*.pyc
+
+.env
+
+.idea/
+
+.vscode/
+
+.pytest_cache/
