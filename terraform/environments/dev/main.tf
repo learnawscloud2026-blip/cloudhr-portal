@@ -181,4 +181,43 @@ module "ecs" {
 
   common_tags = local.common_tags
 
+  execution_role_arn = module.iam.ecs_task_execution_role_arn
+
+  task_role_arn = module.iam.ecs_task_role_arn
+
+  repository_url = module.ecr.repository_url
+
+  private_subnet_ids = [
+
+    module.subnet.private_app_subnet_ids[0],
+
+    module.subnet.private_app_subnet_ids[1]
+
+  ]
+
+  ecs_security_group_id = module.security_group.ecs_security_group_id
+
+  target_group_arn = module.alb.target_group_arn
+
+  container_name = "backend"
+
 }
+
+module "alb" {
+
+  source = "../../modules/alb"
+
+  project_name = var.project_name
+
+  environment = var.environment
+
+  vpc_id = module.vpc.vpc_id
+
+  public_subnet_ids = module.subnet.public_subnet_ids
+
+  alb_security_group_id = module.security_group.alb_security_group_id
+
+  common_tags = local.common_tags
+
+}
+
