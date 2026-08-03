@@ -170,3 +170,15 @@ module "ecr" {
   common_tags = local.common_tags
 
 }
+
+module "ecs" {
+
+  source = "../../modules/ecs"
+
+  project_name = var.project_name
+
+  environment = var.environment
+
+  common_tags = local.common_tags
+
+}
