@@ -1,5 +1,10 @@
-variable "vpc_id" {
-  description = "VPC ID"
+variable "allocation_id" {
+  description = "Elastic IP Allocation ID"
+  type        = string
+}
+
+variable "public_subnet_id" {
+  description = "Public Subnet ID for NAT Gateway"
   type        = string
 }
 
@@ -16,14 +21,4 @@ variable "environment" {
 variable "common_tags" {
   description = "Common Tags"
   type        = map(string)
-}
-
-variable "subnets" {
-  description = "Subnet Configuration"
-
-  type = map(object({
-    cidr_block              = string
-    availability_zone       = string
-    map_public_ip_on_launch = bool
-  }))
 }
