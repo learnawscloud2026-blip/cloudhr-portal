@@ -158,3 +158,15 @@ module "iam" {
   common_tags = local.common_tags
 
 }
+
+module "ecr" {
+
+  source = "../../modules/ecr"
+
+  project_name = var.project_name
+
+  environment = var.environment
+
+  common_tags = local.common_tags
+
+}
