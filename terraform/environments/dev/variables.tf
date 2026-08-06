@@ -18,3 +18,8 @@ variable "my_ip" {
   description = "Public IP Address with /32"
   type        = string
 }
+
+variable "db_password" {
+  type      = string
+  sensitive = true
+}

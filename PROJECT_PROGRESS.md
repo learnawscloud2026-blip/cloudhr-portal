@@ -73,3 +73,26 @@ CloudHR Portal is a production-style AWS cloud application deployed completely u
 - Created Internet Gateway module.
 - Attached IGW to VPC.
 - Verified attachment in AWS Console.cd 
+
+## Sprint 15 - ECS + ALB Deployment ✅
+
+### Completed
+
+- Created Application Load Balancer
+- Created Target Group
+- Configured HTTP Listener
+- Attached ECS Service to Target Group
+- Configured Health Check (/health)
+- Fixed ECS Security Group (8000)
+- Verified Healthy Target
+- Successfully accessed FastAPI application through ALB DNS
+
+### AWS Services Used
+
+- ECS
+- Fargate
+- ALB
+- Target Groups
+- CloudWatch
+- Security Groups
+- IAM

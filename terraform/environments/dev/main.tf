@@ -221,3 +221,18 @@ module "alb" {
 
 }
 
+module "rds" {
+
+  source = "../../modules/rds"
+
+  project_name = var.project_name
+  environment  = var.environment
+
+  private_db_subnet_ids = module.subnet.private_db_subnet_ids
+
+  rds_security_group_id = module.security_group.rds_security_group_id
+
+  db_password = var.db_password
+
+  common_tags = local.common_tags
+}
