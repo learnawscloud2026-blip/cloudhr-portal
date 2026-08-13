@@ -235,6 +235,10 @@ module "alb" {
 
   common_tags = local.common_tags
 
+  certificate_arn = var.domain_name != "" ? module.acm[0].certificate_arn : ""
+
+  enable_https = var.domain_name != "" ? true : false
+
 }
 
 module "rds" {
@@ -258,4 +262,28 @@ module "cognito" {
 
   project_name = var.project_name
   environment  = var.environment
+}
+
+module "route53" {
+  source = "../../modules/route53"
+
+  count = var.domain_name != "" ? 1 : 0
+
+  domain_name = var.domain_name
+
+  alb_dns_name = module.alb.alb_dns_name
+
+  alb_zone_id = module.alb.alb_zone_id
+
+  common_tags = local.common_tags
+}
+
+module "acm" {
+  source = "../../modules/acm"
+
+  count = var.domain_name != "" ? 1 : 0
+
+  domain_name = var.domain_name
+
+  zone_id = module.route53[0].zone_id
 }
