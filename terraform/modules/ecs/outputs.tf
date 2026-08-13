@@ -31,3 +31,11 @@ output "service_name" {
   value = aws_ecs_service.backend.name
 
 }
+
+output "frontend_task_definition_arn" {
+  value = aws_ecs_task_definition.frontend.arn
+}
+
+output "frontend_service_name" {
+  value = aws_ecs_service.frontend.name
+}

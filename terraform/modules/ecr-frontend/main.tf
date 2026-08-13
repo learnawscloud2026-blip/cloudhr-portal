@@ -1,6 +1,6 @@
-resource "aws_ecr_repository" "backend" {
+resource "aws_ecr_repository" "frontend" {
 
-  name = var.repository_name
+  name = "${var.project_name}-${var.environment}-frontend"
 
   image_tag_mutability = "MUTABLE"
 
@@ -15,7 +15,7 @@ resource "aws_ecr_repository" "backend" {
   tags = merge(
     var.common_tags,
     {
-      Name = var.repository_name
+      Name = "${var.project_name}-${var.environment}-frontend-ecr"
     }
   )
 }

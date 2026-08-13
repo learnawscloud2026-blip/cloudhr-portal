@@ -167,8 +167,20 @@ module "ecr" {
 
   environment = var.environment
 
-  common_tags = local.common_tags
+  repository_name = "${var.project_name}-${var.environment}-backend"
 
+  common_tags = local.common_tags
+}
+
+module "ecr_frontend" {
+
+  source = "../../modules/ecr-frontend"
+
+  project_name = var.project_name
+
+  environment = var.environment
+
+  common_tags = local.common_tags
 }
 
 module "ecs" {
@@ -185,22 +197,26 @@ module "ecs" {
 
   task_role_arn = module.iam.ecs_task_role_arn
 
+  # Backend ECR
   repository_url = module.ecr.repository_url
 
+  # Frontend ECR
+  frontend_repository_url = module.ecr_frontend.repository_url
+
   private_subnet_ids = [
-
     module.subnet.private_app_subnet_ids[0],
-
     module.subnet.private_app_subnet_ids[1]
-
   ]
 
   ecs_security_group_id = module.security_group.ecs_security_group_id
 
+  # Backend target group
   target_group_arn = module.alb.target_group_arn
 
-  container_name = "backend"
+  # Frontend target group
+  frontend_target_group_arn = module.alb.frontend_target_group_arn
 
+  container_name = "backend"
 }
 
 module "alb" {
@@ -235,4 +251,11 @@ module "rds" {
   db_password = var.db_password
 
   common_tags = local.common_tags
+}
+
+module "cognito" {
+  source = "../../modules/cognito"
+
+  project_name = var.project_name
+  environment  = var.environment
 }

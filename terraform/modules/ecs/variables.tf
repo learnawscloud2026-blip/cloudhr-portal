@@ -43,3 +43,13 @@ variable "target_group_arn" {
 variable "container_name" {
   type = string
 }
+
+variable "frontend_repository_url" {
+  description = "Frontend ECR Repository URL"
+  type        = string
+}
+
+variable "frontend_target_group_arn" {
+  description = "Frontend ALB Target Group ARN"
+  type        = string
+}
