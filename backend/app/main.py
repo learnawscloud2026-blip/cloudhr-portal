@@ -23,6 +23,11 @@ app.add_middleware(
     CORSMiddleware,
     allow_origins=[
         "http://cloudhr-dev-alb-5812763.us-east-1.elb.amazonaws.com",
+        "https://cloudhr-dev-alb-5812763.us-east-1.elb.amazonaws.com",
+        "https://yellove.co.in",
+        "https://www.yellove.co.in",
+        "http://yellove.co.in",
+        "http://www.yellove.co.in",
         "http://localhost:5173",
         "http://localhost:3000",
     ],

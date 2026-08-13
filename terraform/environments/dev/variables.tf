@@ -23,3 +23,9 @@ variable "db_password" {
   type      = string
   sensitive = true
 }
+
+variable "domain_name" {
+  description = "Domain name for Route 53 and ACM (empty to skip)"
+  type        = string
+  default     = ""
+}
