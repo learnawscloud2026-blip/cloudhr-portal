@@ -1,0 +1,36 @@
+# ECS Task Execution Role Trust Policy
+data "aws_iam_policy_document" "ecs_task_execution_assume_role" {
+  statement {
+    effect = "Allow"
+
+    principals {
+      type        = "Service"
+      identifiers = ["ecs-tasks.amazonaws.com"]
+    }
+
+    actions = ["sts:AssumeRole"]
+  }
+}
+
+# ECS Task Execution Role
+resource "aws_iam_role" "ecs_task_execution" {
+
+  name = "${var.project_name}-${var.environment}-ecs-task-execution-role"
+
+  assume_role_policy = data.aws_iam_policy_document.ecs_task_execution_assume_role.json
+
+  tags = merge(
+    var.common_tags,
+    {
+      Name = "${var.project_name}-${var.environment}-ecs-task-execution-role"
+    }
+  )
+}
+
+# Attach AWS Managed Policy
+resource "aws_iam_role_policy_attachment" "ecs_task_execution_policy" {
+
+  role = aws_iam_role.ecs_task_execution.name
+
+  policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy"
+}
